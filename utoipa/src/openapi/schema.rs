@@ -307,6 +307,7 @@ pub enum Schema {
     /// predetermined value rather than a choice among alternatives.
     ///
     /// See more details at <https://spec.openapis.org/oas/v3.2.0.html#annotated-enumerations>
+    #[serde(rename = "const")]
     Const(Const)
 }
 
