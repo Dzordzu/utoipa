@@ -296,6 +296,38 @@ pub enum Schema {
     ///
     /// [composite]: https://spec.openapis.org/oas/latest.html#components-object
     AnyOf(AnyOf),
+
+    /// Specifies a single permissible value for this schema.
+    ///
+    /// When present, the schema validates only if the instance equals this exact value.
+    /// This is typically used for discriminator properties in polymorphic schemas or
+    /// for fixed protocol fields.
+    ///
+    /// Equivalent to a single-element `enum` but semantically indicates an immutable,
+    /// predetermined value rather than a choice among alternatives.
+    ///
+    /// See more details at <https://spec.openapis.org/oas/v3.2.0.html#annotated-enumerations>
+    Const(Const)
+}
+
+
+/// Specifies a single permissible value for this schema.
+///
+/// When present, the schema validates only if the instance equals this exact value.
+/// This is typically used for discriminator properties in polymorphic schemas or
+/// for fixed protocol fields.
+///
+/// Equivalent to a single-element `enum` but semantically indicates an immutable,
+/// predetermined value rather than a choice among alternatives.
+///
+/// See more details at <https://spec.openapis.org/oas/v3.2.0.html#annotated-enumerations>
+#[non_exhaustive]
+#[derive(Serialize, Deserialize, Clone, PartialEq)]
+#[cfg_attr(feature = "debug", derive(Debug))]
+pub struct Const {
+    /// Constant string value
+    #[serde(rename = "const")]
+    pub const_: Option<String>,
 }
 
 impl Default for Schema {
@@ -1087,20 +1119,6 @@ builder! {
         /// See more details at <https://json-schema.org/understanding-json-schema/reference/non_json_data#contentmediatype>
         #[serde(skip_serializing_if = "String::is_empty", default)]
         pub content_media_type: String,
-
-
-        /// Specifies a single permissible value for this schema.
-        ///
-        /// When present, the schema validates only if the instance equals this exact value.
-        /// This is typically used for discriminator properties in polymorphic schemas or
-        /// for fixed protocol fields.
-        ///
-        /// Equivalent to a single-element `enum` but semantically indicates an immutable,
-        /// predetermined value rather than a choice among alternatives.
-        ///
-        /// See more details at <https://spec.openapis.org/oas/v3.2.0.html#annotated-enumerations>
-        #[serde(rename = "const")]
-        pub const_: Option<String>,
     }
 }
 
