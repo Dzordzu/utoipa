@@ -35,7 +35,7 @@ time = { workspace = true, optional = true }
 axum = { version = "0.8.4", default-features = false, features = [
     "json",
 ], optional = true }
-utoipa = { version = "5.0.0", path = "../utoipa", default-features = false, features = [
+utoipa = { git = "https://github.com/Dzordzu/utoipa", branch = "wcss-ready", default-features = false, features = [
     "macros",
 ] }
 serde = { version = "1.0", features = ["derive", "rc"] }
